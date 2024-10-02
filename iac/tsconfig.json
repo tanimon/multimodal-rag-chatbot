@@ -1,0 +1,7 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./tsc-cache"
+  },
+  "exclude": ["node_modules", "cdk.out"]
+}

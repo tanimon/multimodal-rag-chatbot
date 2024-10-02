@@ -1,0 +1,14 @@
+[
+  {
+    "stageName": "DEV",
+    "accountId": "XXXXXXXXXXXX"
+  },
+  {
+    "stageName": "STG",
+    "accountId": "XXXXXXXXXXXX"
+  },
+  {
+    "stageName": "PRD",
+    "accountId": "XXXXXXXXXXXX"
+  }
+]
