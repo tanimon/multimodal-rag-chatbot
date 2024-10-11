@@ -26,7 +26,18 @@
     "**/node_modules": true
   },
   "python.analysis.autoImportCompletions": true,
+  "python.analysis.exclude": [
+    "**/.mypy_cache",
+    "**/.pytest_cache",
+    "**/.venv",
+    "**/__pycache__",
+    "**/build",
+    "**/cdk.out",
+    "**/node_modules",
+    ".git"
+  ],
   "python.analysis.typeCheckingMode": "standard",
   "python.defaultInterpreterPath": "server/.venv/bin/python",
+  "python.languageServer": "Pylance",
   "python.terminal.activateEnvironment": true
 }
