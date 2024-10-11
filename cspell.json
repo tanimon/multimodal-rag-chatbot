@@ -3,7 +3,22 @@
   "ignorePaths": [],
   "dictionaryDefinitions": [],
   "dictionaries": [],
-  "words": ["hotswap", "pkgs", "venv"],
+  "words": [
+    "boto",
+    "botocore",
+    "docstore",
+    "dotenv",
+    "hotswap",
+    "langchain",
+    "langfuse",
+    "llms",
+    "Markdownify",
+    "mdelete",
+    "pkgs",
+    "Pydantic",
+    "vectorstore",
+    "venv"
+  ],
   "ignoreWords": [],
   "import": []
 }
