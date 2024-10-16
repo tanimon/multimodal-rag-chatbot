@@ -8,7 +8,7 @@ from slack_bolt.adapter.aws_lambda import SlackRequestHandler
 
 from server.rag import Rag
 from server.slack.utils import format_rag_result, remove_mention
-from server.utils.env import getenv_or_die
+from server.utils.env import getenv_or_raise
 
 SlackRequestHandler.clear_all_log_handlers()  # NOTE: このメソッド呼び出し以前に記述されたlogger呼び出しはログ出力されない模様
 logging.basicConfig(format="%(asctime)s %(message)s", level=logging.DEBUG)
@@ -21,8 +21,8 @@ app = App(
 )
 
 llm = ChatBedrock(
-    model_id="anthropic.claude-3-haiku-20240307-v1:0",
-    region_name="us-east-1",
+    model="anthropic.claude-3-haiku-20240307-v1:0",
+    region="us-east-1",
     client=None,
     model_kwargs={
         "temperature": 0,
@@ -34,11 +34,11 @@ embedding = BedrockEmbeddings(
 rag = Rag(
     llm=llm,
     embedding=embedding,
-    index_name=getenv_or_die("PINECONE_INDEX_NAME"),
-    bucket_name=getenv_or_die("RAG_DOCSTORE_BUCKET_NAME"),
-    langfuse_secret_key=getenv_or_die("LANGFUSE_SECRET_KEY"),
-    langfuse_public_key=getenv_or_die("LANGFUSE_PUBLIC_KEY"),
-    langfuse_host=getenv_or_die("LANGFUSE_HOST"),
+    index_name=getenv_or_raise("PINECONE_INDEX_NAME"),
+    bucket_name=getenv_or_raise("RAG_DOCSTORE_BUCKET_NAME"),
+    langfuse_secret_key=getenv_or_raise("LANGFUSE_SECRET_KEY"),
+    langfuse_public_key=getenv_or_raise("LANGFUSE_PUBLIC_KEY"),
+    langfuse_host=getenv_or_raise("LANGFUSE_HOST"),
 )
 
 
