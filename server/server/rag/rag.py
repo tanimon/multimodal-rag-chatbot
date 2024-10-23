@@ -1,5 +1,3 @@
-from operator import itemgetter
-
 from langchain_core.documents import Document as LangChainDocument
 from langchain_core.embeddings import Embeddings
 from langchain_core.language_models import BaseChatModel
@@ -7,7 +5,6 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import (
     Runnable,
     RunnableLambda,
-    RunnableParallel,
     RunnablePassthrough,
 )
 from langfuse.callback import CallbackHandler  # type: ignore
@@ -61,22 +58,12 @@ class Rag:
             bucket_name=bucket_name,
             embedding=embedding,
         )
-        format_context_chain: Runnable = (
+        format_context_chain = (
             RunnableLambda(lambda x: x["retrieved_docs"]) | self._format_docs
         )
 
-        prompt: Runnable = (
-            RunnableParallel(
-                {
-                    "retrieved_docs": itemgetter("retrieved_docs"),
-                    "question": itemgetter("question"),
-                    "context": itemgetter("context"),
-                }
-            )
-            | self._build_prompt
-        )
         structured_llm = llm.with_structured_output(CitedAnswer)
-        generate_answer_chain: Runnable = prompt | structured_llm
+        generate_answer_chain = self._build_prompt | structured_llm
 
         self._rag_chain: Runnable[str, RagResult] = {
             "retrieved_docs": retriever,
