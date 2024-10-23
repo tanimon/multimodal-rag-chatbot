@@ -53,5 +53,5 @@ def create_retriever(
         vectorstore=vectorstore,
         docstore=docstore,
         id_key=id_key,
-        search_kwargs={"k": 10},
+        search_kwargs={"k": 5},
     )
