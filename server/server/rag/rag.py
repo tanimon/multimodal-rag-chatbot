@@ -20,6 +20,8 @@ from server.rag.ingestion.model import (
 from server.rag.model import CitedAnswer, MetadataTypedDocument, RagResult
 from server.rag.retriever import create_retriever
 
+# 以下を参考にした
+# ref: https://smith.langchain.com/hub/rlm/rag-prompt
 _TEXT_MESSAGE_TEMPLATE = {
     "type": "text",
     "text": """\
