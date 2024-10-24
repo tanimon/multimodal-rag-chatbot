@@ -6,5 +6,5 @@ import { LangfuseStack } from "../lib/langfuse-stack";
 import { MainStack } from "../lib/main-stack";
 
 const app = new cdk.App();
-new MainStack(app, "MainStack");
-new LangfuseStack(app, "LangfuseStack");
+new MainStack(app, "Main");
+new LangfuseStack(app, "Langfuse");

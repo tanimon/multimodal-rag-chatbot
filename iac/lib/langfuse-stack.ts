@@ -12,22 +12,18 @@ export class LangfuseStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const langfuseSecret = cdk.aws_secretsmanager.Secret.fromSecretNameV2(
+    const secret = cdk.aws_secretsmanager.Secret.fromSecretNameV2(
       this,
-      "LangfuseSecret",
+      "Secret",
       `/${APP_NAME}/Langfuse`,
     );
 
-    new apprunner.Service(this, "LangfuseService", {
+    new apprunner.Service(this, "Service", {
       source: apprunner.Source.fromAsset({
-        asset: new cdk.aws_ecr_assets.DockerImageAsset(
-          this,
-          "LangfuseDockerImage",
-          {
-            directory: "./asset/langfuse",
-            platform: cdk.aws_ecr_assets.Platform.LINUX_AMD64,
-          },
-        ),
+        asset: new cdk.aws_ecr_assets.DockerImageAsset(this, "DockerImage", {
+          directory: "./asset/langfuse",
+          platform: cdk.aws_ecr_assets.Platform.LINUX_AMD64,
+        }),
         imageConfiguration: {
           environmentVariables: {
             // cspell:ignore NEXTAUTH
@@ -37,18 +33,18 @@ export class LangfuseStack extends cdk.Stack {
           },
           environmentSecrets: {
             DATABASE_URL: apprunner.Secret.fromSecretsManager(
-              langfuseSecret,
+              secret,
               "DATABASE_URL",
             ),
             DIRECT_URL: apprunner.Secret.fromSecretsManager(
-              langfuseSecret,
+              secret,
               "DIRECT_URL",
             ),
             NEXTAUTH_SECRET: apprunner.Secret.fromSecretsManager(
-              langfuseSecret,
+              secret,
               "NEXTAUTH_SECRET",
             ),
-            SALT: apprunner.Secret.fromSecretsManager(langfuseSecret, "SALT"),
+            SALT: apprunner.Secret.fromSecretsManager(secret, "SALT"),
           },
           port: 3000,
         },
