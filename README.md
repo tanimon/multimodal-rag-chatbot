@@ -1,1 +1,1 @@
-# python-app-template
+# multimodal-rag-chatbot
